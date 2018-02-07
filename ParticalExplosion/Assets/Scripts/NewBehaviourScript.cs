@@ -3,45 +3,74 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour {
- public int numSelectors = 5;
-    public GameObject[] selectorArr;
-    public GameObject selector; //selected in the editor
-	public bool expload;
 
-    void Start()
-    {
-        selectorArr = new GameObject[numSelectors];
+	//physics and movemnt
+	Vector3 velocity;
+	Vector3 gravity = new Vector3(0, -9.8f, 0);
+
+	static int numSelectors = 75;
+	public GameObject[] selectorArr;
+ 	public bool expload;
+
+	Vector3[] velocityArr = new Vector3[numSelectors];		 
+	GameObject particleObject;
+	public int deteriorate;
+
+
+
+	// Use this for initialization
+	void Start () 
+	{
+		deteriorate = 0;
+		selectorArr = new GameObject[numSelectors];
         for (int i = 0; i < numSelectors; i++)
         {
-            GameObject go = Instantiate(Resources.Load ("star_prefab")) as GameObject;
-            go.transform.localScale = Vector3.one;
-            selectorArr[i] = go;
+            particleObject = Instantiate(Resources.Load ("particle")) as GameObject;
+            particleObject.transform.localScale = Vector3.one;
+			particleObject.transform.position = new Vector3(0,0,0);
+
+			selectorArr[i] = particleObject;
+			
+			velocityArr[i] = new Vector3(Random.Range(-5.0f, 5.0f),Random.Range(-5.0f, 5.0f),Random.Range(-5.0f, 5.0f));
+			
+            
         }
+	}
+	
+	
+	void Update () {
 		
 	}
 
-			// Update is called once per frame
-	void Update () {
-			if (Input.GetKeyDown("space")){
+
+	void FixedUpdate(){
+		if (Input.GetKeyDown("space")){
 				print("space key was pressed");
 				expload = true;
-			}
-
-			if (expload){
-				for(int i=0; i < numSelectors; i++){
-					selectorArr[i].transform.Translate(Vector3.up * Time.deltaTime, Space.World);
-				}
-
-			}
-
-	}
-
-	void fixedUpdate(){
+		}
 
 		
+		//if ball is in motion
+		if (expload){
+			deteriorate++;
+			for(int i=0; i < numSelectors; i++){
+				
+									
+					velocityArr[i] = velocityArr[i] + gravity * Time.fixedDeltaTime;
+					
+					//ball and colider movement based on new velocity
+					selectorArr[i].transform.Translate(velocityArr[i] * Time.fixedDeltaTime);
+
+
+			}
+		}
+
+		if (deteriorate == 80){
+			expload = false;
+			for(int i=0; i < numSelectors; i++){
+				Destroy(selectorArr[i]);
+			}
+		}
+
 	}
-		
-
-
 }
-
