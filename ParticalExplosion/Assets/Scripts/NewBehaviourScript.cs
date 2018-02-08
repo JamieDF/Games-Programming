@@ -8,7 +8,7 @@ public class NewBehaviourScript : MonoBehaviour {
 	Vector3 velocity;
 	Vector3 gravity = new Vector3(0, -9.8f, 0);
 
-	static int numSelectors = 75;
+	static int numSelectors = 10;
 	public GameObject[] selectorArr;
  	public bool expload;
 
