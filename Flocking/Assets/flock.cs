@@ -11,7 +11,7 @@ public class flock : MonoBehaviour {
     Vector3 averageHeading;
     Vector3 averagePosition;
 
-    float neighbourDistance = 3.0f;
+    float neighbourDistance = 5.0f;
 
 
 	bool turning = false;

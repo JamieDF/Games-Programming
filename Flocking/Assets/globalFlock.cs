@@ -7,7 +7,7 @@ public class globalFlock : MonoBehaviour {
 	// Use this for initialization
 	public GameObject BoidPrefab;
 
-	public static int space = 7;
+	public static int space = 20;
 
     static int numBoids = 10;
     public static GameObject[] allBoids = new GameObject[numBoids];
@@ -19,8 +19,9 @@ public class globalFlock : MonoBehaviour {
 	void Start () {
 
         for (int i = 0; i < numBoids; i++) {
-            Vector3 pos = new Vector3(Random.Range(-space, space), Random.Range(0, 0),Random.Range(-space, space));
+            Vector3 pos = new Vector3(Random.Range(-space, space), 0,Random.Range(-space, space));
             allBoids[i] = (GameObject) Instantiate(BoidPrefab, pos, Quaternion.identity);
+			allBoids[i].transform.rotation =  Quaternion.Euler(0, Random.Range(0, 360),0);
         }
 	}
 	
