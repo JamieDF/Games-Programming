@@ -14,13 +14,9 @@ public class Gravity : MonoBehaviour {
 	float engeryLoss = 0.8f;
 
 	
-	bool moving;
-	bool decent;
+	bool fall;
+	bool motion;
 	int bounce = 0;
-
-
-
-
 
 	// Use this for initialization
 	void Start () 
@@ -29,58 +25,49 @@ public class Gravity : MonoBehaviour {
 		floor =  GameObject.Find("Cube");
 		Collider = GameObject.Find("sphereCollider");
 
-		moving = true;
-		decent = true;
+		fall = true;
+		motion = true;
 	}
-	
-	void Update () {
-		
-	}
-
 
 	void FixedUpdate(){
 		
-		//if ball is in motion
-		if(moving){
+		
+		if(motion){
+			if(velocity.y <= 0)
+				fall = true;
 
-
-			//ensures the ball only bounces on decent
-			if(velocity.y <= 0){
-				decent = true;
-			}
 			else
-				decent = false;
+				fall = false;
 			
-
-			//if ball hits the floor cube	
-			if((Collider.transform.position.y-2.5) <= (floor.transform.position.y) && decent){
-				bounce++;
-				Debug.Log(bounce);
-
-				//engery is lost(realisticly to sound and heat)
-				velocity.y = (velocity.y * -1) * engeryLoss;
-
-				//ball stopes bouncing
-				if(bounce == 20){
-					moving = false;
-				}
-				
-				
+			if((Collider.transform.position.y-2.5) <= (floor.transform.position.y) && fall){
+				bounceBall();
 			}
 
-			//acceleration and deceleration due to grabity
-			velocity = velocity + gravity * Time.fixedDeltaTime;
-			//ball and colider movement based on new velocity
-			transform.Translate(velocity * Time.fixedDeltaTime);
-			Collider.transform.position = transform.position;
-			
+			moveObj();
+
 		}
+	}
 
-		
+	void bounceBall(){
+
+		bounce++;
+		Debug.Log(bounce);
+
+		//engery is lost(realisticly to sound and heat)
+		velocity.y = (velocity.y * -1) * engeryLoss;
+
+		//ball stopes bouncing
+		if(bounce == 20){
+			motion = false;
+		}		
+	}
 
 
-		
+	void moveObj(){
 
+		velocity = velocity + gravity * Time.fixedDeltaTime;
+		transform.Translate(velocity * Time.fixedDeltaTime);
+		Collider.transform.position = transform.position;
 
 	}
 }
