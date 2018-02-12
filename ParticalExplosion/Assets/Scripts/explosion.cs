@@ -12,7 +12,7 @@ public class explosion : MonoBehaviour {
 	Vector3 gravity = new Vector3(0, -9.8f, 0);
 
 	public static string selector = "particle";
-	public static int numSelectors = 500;	
+	public static int numSelectors = 1000;	
 	public int deteriorate  = 0;
 	
  	public bool expload;
@@ -39,7 +39,7 @@ public class explosion : MonoBehaviour {
 			selectorArr[i] = particleObject;
 			selectorArr[i].SetActive(false);
 			
-			velocityArr[i] = new Vector3(Random.Range(-10.0f, 20.0f),Random.Range(-10.0f, 15.0f),Random.Range(-10.0f, 20.0f));
+			velocityArr[i] = new Vector3(Random.Range(-10.0f, 20.0f),Random.Range(-5.0f, 20.0f),Random.Range(-10.0f, 20.0f));
         }
 	}
 	

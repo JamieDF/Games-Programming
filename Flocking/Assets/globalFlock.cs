@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class globalFlock : MonoBehaviour {
 
+	public bool threeDimensional;
+
 	// Use this for initialization
 	public GameObject BoidPrefab;
 
@@ -15,11 +17,19 @@ public class globalFlock : MonoBehaviour {
 	public static Vector3 centerSpace = Vector3.zero;
 
 
+
 	// Use this for initialization
 	void Start () {
 
+		if(threeDimensional){
+			GameObject.Find("Plane").SetActive(false);
+		}
+
         for (int i = 0; i < numBoids; i++) {
-            Vector3 pos = new Vector3(Random.Range(-space, space), 0,Random.Range(-space, space));
+			Vector3 pos = new Vector3(Random.Range(-space, space), 0 ,Random.Range(-space, space));
+			if(threeDimensional){
+				pos.y = Random.Range(-space, space);
+			}
             allBoids[i] = (GameObject) Instantiate(BoidPrefab, pos, Quaternion.identity);
 			allBoids[i].transform.rotation =  Quaternion.Euler(0, Random.Range(0, 360),0);
         }

@@ -19,7 +19,7 @@ public class flock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		velocity = Random.Range(0.5f, 1);
+		velocity = Random.Range(1f, velocity);
 	}
 	
 	// Update is called once per frame
@@ -40,12 +40,12 @@ public class flock : MonoBehaviour {
 
             Vector3 direction = Vector3.zero - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
-            velocity = Random.Range(0.5f, 1);
+            velocity = Random.Range(1f, velocity);
 
         }
         else{
-
-			if (Random.Range(0, 5) < 1){
+           
+			if (Random.Range(0, 3) < 1){
 				ApplyLaws();
 			}
 
@@ -96,7 +96,7 @@ public class flock : MonoBehaviour {
 
 
         if (groupSize > 0){
-
+          //  Debug.Log("group size : "+ groupSize);
             vcentre = vcentre / groupSize + (goalPos - this.transform.position);
             velocity = gSpeed / groupSize;
 

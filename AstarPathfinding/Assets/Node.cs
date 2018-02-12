@@ -26,6 +26,7 @@ public class Node {
 	}
 	public int fCost
 	{
+		
 		get{
 			return gCost + hCost;
 		}

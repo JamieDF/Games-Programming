@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Grid.cs" />
-     <Compile Include="Assets\Move.cs" />
      <Compile Include="Assets\Node.cs" />
      <Compile Include="Assets\Pathfinding.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />

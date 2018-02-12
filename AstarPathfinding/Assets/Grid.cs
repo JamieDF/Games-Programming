@@ -136,10 +136,10 @@ public class Grid : MonoBehaviour {
 
 			foreach (Node n in grid)
 			{
-				Gizmos.color = (n.walk)?Color.white:Color.red;
+				Gizmos.color = (n.walk)?Color.black:Color.red;
 					if(path != null){
 						if(path.Contains(n)){
-							Gizmos.color = Color.black;
+							Gizmos.color = Color.green;
 					}
 				}
 				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
