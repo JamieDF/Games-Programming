@@ -25,7 +25,7 @@ public class Pathfinding : MonoBehaviour {
 		Node targetNode = grid.WorldPointNode(targetPosition);
 
 		List<Node> open = new List<Node>();
-		HashSet<Node> closed = new HashSet<Node>();
+		List<Node> closed = new List<Node>();
 
 		open.Add(startingNode);
 

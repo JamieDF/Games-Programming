@@ -5,39 +5,37 @@ using UnityEngine;
 public class explosion : MonoBehaviour {
 
 	//physics and movemnt
+	public GameObject[] particleObjArr;
+	public GameObject particleObject;
+	public GameObject cube;
 	
 	Vector3 velocity;
-	Vector3[] velocityArr = new Vector3[numSelectors];	
+	Vector3[] velocityArr = new Vector3[particleNo];	
 	Vector3 cubevelocity;
 	Vector3 gravity = new Vector3(0, -9.8f, 0);
 
-	public static string selector = "particle";
-	public static int numSelectors = 1000;	
-	public int deteriorate  = 0;
+	public static int particleNo = 1000;	
+	public int timeOut  = 0;
 	
  	public bool expload;
-	public bool falling;
-
-	public GameObject[] selectorArr;
-	public GameObject particleObject;
-	public GameObject cube;
-
+	public bool dropCube;
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		cube = Instantiate(Resources.Load ("cube")) as GameObject;
+
 		
-		selectorArr = new GameObject[numSelectors];
-        for (int i = 0; i < numSelectors; i++)
+		particleObjArr = new GameObject[particleNo];
+        for (int i = 0; i < particleNo; i++)
         {
-            particleObject = Instantiate(Resources.Load (selector)) as GameObject;
-            particleObject.transform.localScale = Vector3.one;
+			particleObject = Instantiate(Resources.Load ("particle")) as GameObject;
+			
 			particleObject.transform.position = new Vector3(0,0,0);
 
-			selectorArr[i] = particleObject;
-			selectorArr[i].SetActive(false);
+			particleObjArr[i] = particleObject;
+			particleObjArr[i].SetActive(false);
 			
 			velocityArr[i] = new Vector3(Random.Range(-10.0f, 20.0f),Random.Range(-5.0f, 20.0f),Random.Range(-10.0f, 20.0f));
         }
@@ -46,22 +44,21 @@ public class explosion : MonoBehaviour {
 	void FixedUpdate(){
 
 		if (Input.GetKeyDown("space")){
-				print("space key was pressed");
-				falling = true;
+				dropCube = true;
 		}
 
-		if(falling){
+		if(dropCube){
 			cubeFall();
 		}
-		//if ball is in motion
+		
 		if (expload){
 			exploading();
 		}
 
-		if (deteriorate == 160){
+		if (timeOut == 160){
 			expload = false;
-			for(int i=0; i < numSelectors; i++){
-				Destroy(selectorArr[i]);
+			for(int i=0; i < particleNo; i++){
+				Destroy(particleObjArr[i]);
 			}
 		}
 
@@ -70,7 +67,7 @@ public class explosion : MonoBehaviour {
 	void cubeFall(){
 
 		if(cube.transform.position.y <=0){
-				falling = false;
+				dropCube = false;
 				expload =true;
 				cube.SetActive(false);
 			}
@@ -83,15 +80,15 @@ public class explosion : MonoBehaviour {
 
 	void exploading(){
 
-			deteriorate++;
-			for(int i=0; i < numSelectors; i++){
-				selectorArr[i].SetActive(true);
-				moveObj(ref velocityArr[i], ref selectorArr[i]);
+			timeOut++;
+			for(int i=0; i < particleNo; i++){
+				particleObjArr[i].SetActive(true);
+				moveObj(ref velocityArr[i], ref particleObjArr[i]);
 			}
 
 	}
 
-	void moveObj( ref Vector3 vel,ref GameObject obj){
+	void moveObj(ref Vector3 vel,ref GameObject obj){
 					vel = vel + gravity * Time.fixedDeltaTime;
 					obj.transform.Translate(vel * Time.fixedDeltaTime);
 	}

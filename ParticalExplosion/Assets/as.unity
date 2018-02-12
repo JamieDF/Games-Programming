@@ -208,11 +208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b1544858070e2479312835690680c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectorArr: []
+  particleObjArr: []
+  particleObject: {fileID: 1684417841261116, guid: 6491146c8b257aa408717b7da19d7756,
+    type: 2}
+  cube: {fileID: 1950839178916836, guid: 2ec88795b477ebd46acc726d3b7159c5, type: 2}
+  timeOut: 0
   expload: 0
-  falling: 0
-  deteriorate: 0
-  cube: {fileID: 0}
+  dropCube: 0
 --- !u!81 &951388396
 AudioListener:
   m_ObjectHideFlags: 0
