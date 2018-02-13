@@ -3,27 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Build;
 
+
+
 public class Node {
 
-	public bool walk;
+
 	public Vector3 worldPosition;
 
+	//keeps track of own poisition 
 	public int gCost;
 	public int hCost;
-	public int gridX;
-	public int gridY;
+	public int Xlocation;
+	public int Ylocation;
 
+	//whether it can is walkable or not
+	public bool notwall;
+
+	//keeps track of its parent node
 	public Node parent;
 	
 
-	public Node(bool _walk, Vector3 _worldPosition, int _gridX, int _gridY)
+	public Node(bool _notwall, Vector3 _worldPosition, int _Xlocation, int _Ylocation)
 	{
-		walk = _walk;
+		
+		notwall = _notwall;
+
+		//sets nodes postions
 		worldPosition = _worldPosition;
-		gridX = _gridX;
-		gridY = _gridY;
+		Xlocation = _Xlocation;
+		Ylocation = _Ylocation;
 
 	}
+
+	//cost to goal from start
 	public int fCost
 	{
 		
