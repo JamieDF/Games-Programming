@@ -83,7 +83,9 @@ public class Grid : MonoBehaviour {
 	
 	public Node WorldPointNode(Vector3 worldPosition)
 	{
-		//
+			//returns the start and end point in the grid
+
+
 		float xPercentage = (worldPosition.x + gridSize.x/2) / gridSize.x;
 		float yPercentage = (worldPosition.z + gridSize.y/2) / gridSize.y;
 		//makes whole number 
